@@ -1,0 +1,15 @@
+﻿@model MedicalSystemApp.Models.Patient
+
+<h2>Edit Patient</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <input asp-for="FullName" placeholder="Name" class="form-control mb-2" />
+    <input asp-for="Gender" placeholder="Gender" class="form-control mb-2" />
+    <input asp-for="DateOfBirth" type="date" class="form-control mb-2" />
+    <input asp-for="Allergies" placeholder="Allergies" class="form-control mb-2" />
+
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
+
