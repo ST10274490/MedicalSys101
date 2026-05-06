@@ -1,32 +1,238 @@
 ﻿@model List<MedicalSystemApp.Models.Patient>
 
-<h2>Patients</h2>
+@{
+    ViewData["Title"] = "Patient Management";
+}
 
-<a asp-action="Create" class="btn btn-primary">Add New Patient</a>
+<div class="container-fluid px-0">
+    <!-- Page Header with Red Accent -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-danger border-3">
+        <div>
+            <h1 class="display-6 fw-bold" style="color: #dc2626;">
+                <i class="fas fa-users me-3"></i>Patient Management
+            </h1>
+            <p class="text-muted mt-2">
+                <i class="fas fa-hospital-user me-1"></i> View and manage all registered patients
+            </p>
+        </div>
+        <div>
+            <a asp-action="Create" class="btn-red btn-lg px-4" style="text-decoration: none; display: inline-block;">
+                <i class="fas fa-user-plus me-2"></i>Add New Patient
+            </a>
+        </div>
+    </div>
 
-<table class="table mt-3">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>Allergies</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var patient in Model)
-        {
-            <tr>
-                <td>@patient.FullName</td>
-                <td>@patient.Gender</td>
-                <td>@patient.DateOfBirth.ToShortDateString()</td>
-                <td>@patient.Allergies</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <!-- Stats Cards Row -->
+    <div class="row mb-4 g-3">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-left: 4px solid #dc2626;">
+                <div class="card-body">
+                    <i class="fas fa-users fa-2x mb-2" style="color: #dc2626;"></i>
+                    <h6 class="text-muted">Total Patients</h6>
+                    <h3 class="mb-0" style="color: #dc2626;">@Model.Count</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-left: 4px solid #dc2626;">
+                <div class="card-body">
+                    <i class="fas fa-venus-mars fa-2x mb-2" style="color: #dc2626;"></i>
+                    <h6 class="text-muted">Gender Ratio</h6>
+                    <h3 class="mb-0" style="color: #dc2626;">
+                        <small class="fs-6">M:</small> @Model.Count(p => p.Gender == "Male") 
+                        <small class="fs-6">F:</small> @Model.Count(p => p.Gender == "Female")
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-left: 4px solid #dc2626;">
+                <div class="card-body">
+                    <i class="fas fa-allergies fa-2x mb-2" style="color: #dc2626;"></i>
+                    <h6 class="text-muted">With Allergies</h6>
+                    <h3 class="mb-0" style="color: #dc2626;">@Model.Count(p => !string.IsNullOrEmpty(p.Allergies))</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-left: 4px solid #dc2626;">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-2x mb-2" style="color: #dc2626;"></i>
+                    <h6 class="text-muted">Average Age</h6>
+                    <h3 class="mb-0" style="color: #dc2626;">
+                        @{
+                            var avgAge = Model.Any() ? (int)Model.Average(p => DateTime.Now.Year - p.DateOfBirth.Year) : 0;
+                        }
+                        @avgAge <small class="fs-6">years</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patients Table Card -->
+    <div class="card border-0 shadow-lg" style="border-radius: 12px;">
+        <div class="card-header bg-white border-0 pt-4 pb-0">
+            <h4 class="mb-0" style="color: #991b1b;">
+                <i class="fas fa-list me-2"></i>Patient Directory
+            </h4>
+            <hr class="my-2" style="border-color: #dc2626; opacity: 0.3;" />
+        </div>
+        <div class="card-body p-4">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No patients found. Click "Add New Patient" to get started.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead style="background-color: #fef2f2;">
+                            <tr style="color: #991b1b; border-bottom: 2px solid #dc2626;">
+                                <th><i class="fas fa-user me-2"></i>Name</th>
+                                <th><i class="fas fa-venus-mars me-2"></i>Gender</th>
+                                <th><i class="fas fa-calendar-alt me-2"></i>Date of Birth</th>
+                                <th><i class="fas fa-allergies me-2"></i>Allergies</th>
+                                <th><i class="fas fa-cogs me-2"></i>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var patient in Model)
+                            {
+                                <tr style="border-bottom: 1px solid #fee2e2;">
+                                    <td>
+                                        <i class="fas fa-user-circle me-2" style="color: #dc2626;"></i>
+                                        <strong>@patient.FullName</strong>
+                                    </td>
+                                    <td>
+                                        @if (patient.Gender == "Male")
+                                        {
+                                            <span class="badge" style="background-color: #dc2626; color: white;">
+                                                <i class="fas fa-mars me-1"></i>Male
+                                            </span>
+                                        }
+                                        else if (patient.Gender == "Female")
+                                        {
+                                            <span class="badge" style="background-color: #b91c1c; color: white;">
+                                                <i class="fas fa-venus me-1"></i>Female
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@patient.Gender</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-birthday-cake me-1" style="color: #dc2626;"></i>
+                                        @patient.DateOfBirth.ToShortDateString()
+                                        <small class="text-muted d-block">
+                                            (@(DateTime.Now.Year - patient.DateOfBirth.Year) years)
+                                        </small>
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(patient.Allergies))
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                                @patient.Allergies
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">
+                                                <i class="fas fa-check-circle text-success me-1"></i>None
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-sm me-2" style="background-color: #f59e0b; color: white; border: none;">
+                                            <i class="fas fa-edit me-1"></i>Edit
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-sm" style="background-color: #dc2626; color: white; border: none;">
+                                            <i class="fas fa-trash-alt me-1"></i>Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Emergency Note -->
+    <div class="card mt-4 border-danger" style="background-color: #fef2f2;">
+        <div class="card-body py-3">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-heartbeat fa-2x me-3" style="color: #dc2626;"></i>
+                <div>
+                    <small style="color: #991b1b;">
+                        <strong><i class="fas fa-shield-alt me-1"></i>Medical Records Protected:</strong> 
+                        All patient information is confidential and stored securely in compliance with healthcare regulations.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #fef2f2;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-red {
+        background-color: #dc2626;
+        border: none;
+        color: white;
+        padding: 10px 24px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-red:hover {
+        background-color: #b91c1c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        color: white;
+    }
+    
+    .btn-sm {
+        border-radius: 6px;
+        padding: 5px 12px;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-sm:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.05);
+    }
+    
+    .card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+    
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .table tbody tr {
+        animation: fadeIn 0.3s ease-out;
+    }
+</style>
