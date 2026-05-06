@@ -1,0 +1,214 @@
+﻿@model MedicalSystemApp.Models.Patient
+
+@{
+    ViewData["Title"] = "Create New Patient";
+}
+
+<div class="container-fluid px-0">
+    <!-- Page Header with Red Accent -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-danger border-3">
+        <div>
+            <h1 class="display-6 fw-bold" style="color: #dc2626;">
+                <i class="fas fa-user-plus me-3"></i>Create New Patient
+            </h1>
+            <p class="text-muted mt-2">
+                <i class="fas fa-hospital-user me-1"></i> Register a new patient in the Medical System
+            </p>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-red">
+                <i class="fas fa-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-8">
+            <!-- Form Card with Red Theme -->
+            <div class="card border-0 shadow-lg" style="border-top: 5px solid #dc2626; border-radius: 12px;">
+                <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <h4 class="mb-0" style="color: #991b1b;">
+                        <i class="fas fa-notes-medical me-2"></i>Patient Registration Form
+                    </h4>
+                    <hr class="my-2" style="border-color: #dc2626; opacity: 0.3;" />
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Please correct the following errors:
+                        </div>
+
+                        <!-- ID Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="Id" class="form-label fw-semibold">
+                                <i class="fas fa-id-card me-2" style="color: #dc2626;"></i>Patient ID
+                            </label>
+                            <input asp-for="Id" class="form-control form-control-lg" placeholder="e.g., P001234" />
+                            <small class="text-muted">Unique identifier for the patient</small>
+                            <span asp-validation-for="Id" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Full Name Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="FullName" class="form-label fw-semibold">
+                                <i class="fas fa-user me-2" style="color: #dc2626;"></i>Full Name
+                            </label>
+                            <input asp-for="FullName" class="form-control form-control-lg" placeholder="e.g., John David Smith" />
+                            <span asp-validation-for="FullName" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Gender Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="Gender" class="form-label fw-semibold">
+                                <i class="fas fa-venus-mars me-2" style="color: #dc2626;"></i>Gender
+                            </label>
+                            <select asp-for="Gender" class="form-select form-select-lg">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Date of Birth Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="DateOfBirth" class="form-label fw-semibold">
+                                <i class="fas fa-calendar-alt me-2" style="color: #dc2626;"></i>Date of Birth
+                            </label>
+                            <input asp-for="DateOfBirth" type="date" class="form-control form-control-lg" />
+                            <span asp-validation-for="DateOfBirth" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Allergies Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="Allergies" class="form-label fw-semibold">
+                                <i class="fas fa-allergies me-2" style="color: #dc2626;"></i>Allergies
+                            </label>
+                            <textarea asp-for="Allergies" class="form-control" rows="3" placeholder="List any known allergies (e.g., Penicillin, Peanuts, Latex)"></textarea>
+                            <small class="text-muted">Separate multiple allergies with commas</small>
+                            <span asp-validation-for="Allergies" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group mt-5">
+                            <button type="submit" class="btn btn-red btn-lg px-5 me-2">
+                                <i class="fas fa-save me-2"></i>Create Patient
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="fas fa-undo-alt me-2"></i>Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Additional Info Card -->
+            <div class="card mt-4 border-0 bg-light" style="border-left: 4px solid #dc2626;">
+                <div class="card-body py-3">
+                    <i class="fas fa-info-circle me-2" style="color: #dc2626;"></i>
+                    <small class="text-muted">
+                        <strong>Note:</strong> All patient information is confidential and protected under medical privacy laws.
+                        Required fields are marked with validation indicators.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Info Panel -->
+        <div class="col-lg-4 col-md-4">
+            <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%); border-top: 4px solid #dc2626;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #991b1b;">
+                        <i class="fas fa-clinic-medical me-2"></i>Quick Tips
+                    </h5>
+                    <hr class="my-2" style="border-color: #dc2626;" />
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Use unique Patient ID format</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Enter full legal name as per ID</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>List all allergies for safety</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                            <small>Critical allergies require immediate flagging</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Emergency Contact Card -->
+            <div class="card border-danger border-2">
+                <div class="card-header bg-danger text-white py-2">
+                    <small><i class="fas fa-ambulance me-2"></i>Emergency Protocol</small>
+                </div>
+                <div class="card-body">
+                    <small>
+                        <i class="fas fa-phone me-2 text-danger"></i>Emergency: <strong>911</strong><br />
+                        <i class="fas fa-truck-medical me-2 text-danger"></i>Ambulance available 24/7<br />
+                        <i class="fas fa-heartbeat me-2 text-danger"></i>Rapid response team on standby
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom styles for form inputs */
+    .form-control:focus,
+    .form-select:focus,
+    textarea:focus {
+        border-color: #dc2626;
+        box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.25);
+    }
+    
+    .btn-red {
+        background-color: #dc2626;
+        border: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+        .btn-red:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+    
+    .btn-outline-red {
+        border: 2px solid #dc2626;
+        background: transparent;
+        color: #dc2626;
+        transition: all 0.3s ease;
+    }
+    
+        .btn-outline-red:hover {
+            background-color: #dc2626;
+            color: white;
+            transform: translateY(-2px);
+        }
+    
+    .card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

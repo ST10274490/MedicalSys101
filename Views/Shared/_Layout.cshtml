@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Red Crescent Medical System</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+            /* HOSPITAL RED THEME - Emergency & Care Features */
+            :root {
+                --hospital-red: #dc2626;
+                --hospital-dark-red: #b91c1c;
+                --hospital-light-red: #fee2e2;
+                --hospital-burgundy: #991b1b;
+                --medical-white: #ffffff;
+                --soft-gray-bg: #fef2f2;
+                --clinical-blue: #1e3a8a;
+            }
+
+            body {
+                background-color: var(--soft-gray-bg);
+                font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            }
+
+            /* Red-accented navbar - hospital authority look */
+            .navbar {
+                background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+                border-bottom: 3px solid var(--hospital-red);
+                box-shadow: 0 2px 12px rgba(220, 38, 38, 0.15);
+            }
+
+            .navbar-brand {
+                font-weight: 800;
+                font-size: 1.5rem;
+                background: linear-gradient(120deg, var(--hospital-red), var(--hospital-burgundy));
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent !important;
+            }
+
+                .navbar-brand i {
+                    color: var(--hospital-red);
+                    background: none;
+                    -webkit-background-clip: unset;
+                }
+
+            .nav-link {
+                font-weight: 600;
+                transition: all 0.2s ease;
+                border-radius: 8px;
+                padding: 8px 16px;
+            }
+
+                .nav-link:hover {
+                    background-color: var(--hospital-light-red);
+                    color: var(--hospital-red) !important;
+                }
+
+            /* Hospital badge */
+            .hospital-badge {
+                background-color: var(--hospital-red);
+                color: white;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                margin-left: 12px;
+            }
+
+            /* Footer with red border - COMPACT VERSION */
+            .footer {
+                background: white;
+                border-top: 3px solid var(--hospital-red);
+                margin-top: auto;
+                padding: 0.5rem 0;
+                font-size: 0.8rem;
+            }
+        
+                .footer .row {
+                    margin: 0;
+                }
+        
+                .footer .col-md-6 {
+                    padding: 0.25rem 0;
+                }
+
+            /* Emergency banner */
+            .emergency-strip {
+                background: linear-gradient(95deg, var(--hospital-red) 0%, var(--hospital-burgundy) 100%);
+                color: white;
+                padding: 8px 0;
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+
+            .alert-red-pulse {
+                animation: pulse-red 1.5s ease-in-out infinite;
+            }
+
+            /* Button styles */
+            .btn-red {
+                background-color: var(--hospital-red);
+                border: none;
+                color: white;
+                padding: 6px 16px;
+                border-radius: 6px;
+                font-weight: 600;
+                transition: all 0.2s;
+            }
+
+                .btn-red:hover {
+                    background-color: var(--hospital-dark-red);
+                    transform: translateY(-1px);
+                    color: white;
+                }
+
+            .btn-outline-red {
+                border: 2px solid var(--hospital-red);
+                background: transparent;
+                color: var(--hospital-red);
+                border-radius: 6px;
+                font-weight: 600;
+            }
+
+                .btn-outline-red:hover {
+                    background-color: var(--hospital-red);
+                    color: white;
+                }
+        
+            /* Compact footer spacing */
+            .footer .small {
+                font-size: 0.7rem;
+            }
+        
+            .footer .badge {
+                font-size: 0.65rem;
+                padding: 2px 8px;
+            }
+    </style>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MedicalSystemApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Emergency alert strip - RED HOSPITAL FEATURE -->
+    <div class="emergency-strip">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div>
+                    <i class="fas fa-heartbeat me-2"></i>
+                    <strong>🚨 24/7 EMERGENCY & TRAUMA CENTER ACTIVE</strong> — Code Red Response Team Ready
+                </div>
+                <div>
+                    <span class="badge bg-light text-danger me-2">
+                        <i class="fas fa-ambulance"></i> Emergency: 911
+                    </span>
+                    <span class="badge bg-danger alert-red-pulse">
+                        <i class="fas fa-bell"></i> 3 Active Critical Alerts
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-hospital-user me-2"></i>Medical System
+                    <span class="hospital-badge"><i class="fas fa-heartbeat me-1"></i> Emergency Ready</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">
+                                <i class="fas fa-chart-line me-1" style="color: #dc2626;"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Patient" asp-action="Index">
+                                <i class="fas fa-users me-1" style="color: #dc2626;"></i> Patients
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Appointment" asp-action="Index">
+                                <i class="fas fa-calendar-check me-1" style="color: #dc2626;"></i> Appointments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                                <i class="fas fa-sign-in-alt me-1" style="color: #dc2626;"></i> Login
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-danger me-2">
+                            <i class="fas fa-user-md"></i> Dr. Sarah Mitchell
+                        </span>
+                        <i class="fas fa-bell text-danger me-3" style="cursor: pointer;" title="Critical Alerts"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Red Alert Banner for critical notifications -->
+            <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="border-left: 5px solid #991b1b;">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                    <div>
+                        <strong><i class="fas fa-heartbeat me-1"></i> HOSPITAL RED FEATURES ACTIVE:</strong>
+                        Blood bank critical levels | ICU capacity at 84% | Emergency response team on standby
+                    </div>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <!-- THIS IS CRITICAL - RenderBody MUST be called here -->
+            @RenderBody()
+            
+            <!-- Quick stats row - RED HOSPITAL FEATURES after body -->
+            <div class="row mt-4 g-3">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 shadow-sm" style="border-top: 4px solid #dc2626;">
+                        <div class="card-body">
+                            <i class="fas fa-procedures fa-2x mb-2" style="color: #dc2626;"></i>
+                            <h6 class="card-title text-muted">Active Beds</h6>
+                            <h3 class="mb-0" style="color: #dc2626;">142 <small class="text-muted fs-6">/ 168</small></h3>
+                            <small class="text-danger">84% Occupancy</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 shadow-sm" style="border-top: 4px solid #dc2626;">
+                        <div class="card-body">
+                            <i class="fas fa-heartbeat fa-2x mb-2" style="color: #dc2626;"></i>
+                            <h6 class="card-title text-muted">Critical Patients</h6>
+                            <h3 class="mb-0" style="color: #dc2626;">12</h3>
+                            <small class="text-danger"><i class="fas fa-arrow-up"></i> +3 from yesterday</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 shadow-sm" style="border-top: 4px solid #dc2626;">
+                        <div class="card-body">
+                            <i class="fas fa-truck-medical fa-2x mb-2" style="color: #dc2626;"></i>
+                            <h6 class="card-title text-muted">Active Ambulances</h6>
+                            <h3 class="mb-0" style="color: #dc2626;">6</h3>
+                            <small class="text-success">2 en route</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 shadow-sm" style="border-top: 4px solid #dc2626;">
+                        <div class="card-body">
+                            <i class="fas fa-clock fa-2x mb-2" style="color: #dc2626;"></i>
+                            <h6 class="card-title text-muted">ER Wait Time</h6>
+                            <h3 class="mb-0" style="color: #dc2626;">14 <small class="text-muted fs-6">min</small></h3>
+                            <small class="text-danger">Below target ✓</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blood Bank Alert - RED HOSPITAL FEATURE -->
+            <div class="card mt-4 border-danger">
+                <div class="card-header bg-danger text-white py-2">
+                    <small><i class="fas fa-droplet me-2"></i> Blood Bank Status - CRITICAL LEVELS</small>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6>Type A+</h6>
+                                <span class="badge bg-success">8 units</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6>Type B+</h6>
+                                <span class="badge bg-warning">5 units</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6>Type O-</h6>
+                                <span class="badge bg-danger">2 units <i class="fas fa-exclamation-triangle"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6>Type AB+</h6>
+                                <span class="badge bg-info">3 units</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button class="btn btn-danger btn-sm" onclick="alert('🩸 Emergency blood donation drive initiated. Red Cross notified.')">
+                            <i class="fas fa-hand-holding-heart"></i> Schedule Emergency Donation Drive
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- COMPACT FOOTER - Reduced size -->
+    <footer class="footer text-muted mt-4">
+        <div class="container">
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <i class="fas fa-hospital-user me-1" style="color: #dc2626; font-size: 0.8rem;"></i>
+                    <strong>Medical System</strong> — Advanced Hospital Care
+                    <br />
+                    <small>
+                        <i class="fas fa-map-marker-alt me-1" style="color: #dc2626;"></i> 34 Heerengracht St, Cape Town, 8001
+                        | <i class="fas fa-phone me-1" style="color: #dc2626;"></i> (021) 123 4567
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <span class="badge bg-danger">
+                        <i class="fas fa-shield-heart"></i> JCI Accredited
+                    </span>
+                    <br />
+                    <small>
+                        &copy; 2026 - MedicalSystemApp -
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-danger text-decoration-none">Privacy</a>
+                        | <i class="fas fa-clock me-1"></i> 24/7 Emergency
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+            // Ensure any view-specific scripts are rendered
+            $(document).ready(function() {
+                console.log("Red Hospital Features Layout Loaded - RenderBody called successfully");
+            
+                // Add pulse animation to critical alerts
+                $('.alert-red-pulse').css('animation', 'pulse-red 1.5s ease-in-out infinite');
+            });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

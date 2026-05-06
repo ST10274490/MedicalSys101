@@ -1,0 +1,32 @@
+﻿@model List<MedicalSystemApp.Models.Patient>
+
+<h2>Patients</h2>
+
+<a asp-action="Create" class="btn btn-primary">Add New Patient</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Allergies</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.FullName</td>
+                <td>@patient.Gender</td>
+                <td>@patient.DateOfBirth.ToShortDateString()</td>
+                <td>@patient.Allergies</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
